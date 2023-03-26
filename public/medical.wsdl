@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<wsdl:definitions name="Medicals"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  targetNamespace="Medicals"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="Medicals"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+    <xsd:documentation></xsd:documentation>
+
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="Medicals">
+            <xsd:complexType name="medicals">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:integer"></xsd:element>
+                    <xsd:element name="name" type="tns:string"></xsd:element>
+                    <xsd:element name="PZN" type="xsd:string"></xsd:element>
+                    <xsd:element name="darreichung" type="xsd:string"></xsd:element>
+                    <xsd:element name="marke" type="xsd:string"></xsd:element>
+                    <xsd:element name="details" type="xsd:string"></xsd:element>
+                    <xsd:element name="preis" type="xsd:float"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="getAllMedicalsRequest" type="Void"></wsdl:message>
+    <xsd:complexType name="Void">
+        <xsd:sequence>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <wsdl:message name="getAllMedicalsResponse">
+        <wsdl:part name="id" type="tns:integer"></wsdl:part>
+        <wsdl:part name="name" type="tns:string"></wsdl:part>
+        <wsdl:part name="PZN" type="tns:string"></wsdl:part>
+        <wsdl:part name="darreichung" type="tns:string"></wsdl:part>
+        <wsdl:part name="marke" type="tns:string"></wsdl:part>
+        <wsdl:part name="details" type="tns:string"></wsdl:part>
+        <wsdl:part name="preis" type="tns:float"></wsdl:part>
+    </wsdl:message>
+
+    <wsdl:portType name="Medicals">
+        <wsdl:operation name="getAllMedicals">
+            <wsdl:input message="tns:getAllMedicalsRequest"/>
+            <wsdl:output message="tns:getAllMedicalsResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="Medicals" type="tns:Medicals">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getAllMedicals">
+            <soap:operation soapAction="http://soap-medical-app.local.com/soap/medical"/>
+            <wsdl:input>
+                <soap:body use="literal" namespace="Medicals"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" namespace="Medicals"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="Medicals">
+        <wsdl:port binding="tns:Medicals" name="ProductMedicals">
+            <soap:address location="http://soap-medical-app.local.com/soap/medical"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>
