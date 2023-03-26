@@ -53,10 +53,10 @@ You can choose between HTML and JSON Output via the controller route
 
 HTML
 ```php
-http://soap-medical-app.local.com/soap/medical/client/html
+http://<your virtualhhost>/soap/medical/client/html
 ```
 
 JSON
 ```php
-http://soap-medical-app.local.com/soap/medical/client/json
+http://<your virtualhhost>/soap/medical/client/json
 ```
