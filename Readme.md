@@ -1,22 +1,62 @@
-symfony new soap-medical-app --version=5.4
-virtualhost anlegen
+# SOAP Server and Client with Symfony 5.4
 
-composer require symfony/orm-pack
-composer require --dev symfony/maker-bundle
+## Getting the Project
 
-.env
-DATABASE_URL="mysql://root:root@127.0.0.1:3306/medicals?serverVersion=5.7"
+To install clone the github repository
 
+```php
+git clone https://github.com/bmehler/symfony-SOAP.git
+```
+
+Change to the cloned folder and use the composer
+
+```php
+cd symfony-SOAP
+composer install
+```
+
+## To do in Symfony
+
+Change the following line in .env to use a database
+
+```php
+DATABASE_URL="mysql://<db_user>:<db_password@<db_host>/<db_name>?serverVersion=5.7"
+
+For example:
+db_user = root
+db_password = root
+db_host = 127.0.0.1:3306
+db_name = medicals
+```
+Do following to work to connect your database an create a table
+
+```php
 php bin/console doctrine:database:create
-php bin/console make:entity
 php bin/console make:migration
 php bin/console doctrine:migrations:migrate
+```
 
-composer require doctrine/annotations
-php bin/console make:controller SoapMedicalController
+You can create a virtualhost like I do
+```php
+<VirtualHost *:80>
+    DocumentRoot "<your path to public folder>"
+    ServerName <your server name>
+    <Directory "<your path to public folder>">
+        AllowOverride All
+        Order Allow,Deny
+        Allow from All
+    </Directory>
+</VirtualHost>
+```
 
-add .htaccess
+You can choose between HTML and JSON Output via the controller route
 
-Service anlegen
+HTML
+```php
+http://soap-medical-app.local.com/soap/medical/client/html
+```
 
-Controller testen
+JSON
+```php
+http://soap-medical-app.local.com/soap/medical/client/json
+```
