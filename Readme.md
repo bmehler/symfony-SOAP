@@ -49,6 +49,21 @@ You can create a virtualhost like I do
 </VirtualHost>
 ```
 
+Change the Url of the wsdl file
+```php
+http://<your virtualhost>/medical.wsdl
+```
+
+Change the soapAction and location in the wsdl file
+```php
+http://<your virtualhost>/soap/medical
+```
+
+Change the location parameter
+```php
+http://<your virtualhost>/soap/medical
+```
+
 You can choose between HTML and JSON Output via the controller route
 
 HTML
