@@ -50,8 +50,7 @@ You can create a virtualhost like I do
 ```
 Insert your virtualhost in .env file
 ```php
-APP_SOAP_URL
-http://<your virtualhost>/soap/medical
+APP_SOAP_URL=http://<your virtualhost>/
 ```
 
 Change the soapAction and location in the wsdl file
