@@ -13,8 +13,9 @@ class SoapMedicalController extends AbstractController
     #[Route('/soap/medical', name: 'app_soap_medical')]
     public function index(MedicalsRepository $medicalsRepository): Response
     {
+        $url = $this->getParameter('app.url');
         $soap_server_config = array(
-            'uri' => 'http://soap-medical-app.local.com/soap/medical',
+            'uri' => $url . 'soap/medical',
         );
         $soap_server = new \SoapServer(null, $soap_server_config);
         $soap_server->setObject($medicalsRepository);
@@ -28,10 +29,11 @@ class SoapMedicalController extends AbstractController
 
     #[Route('/soap/medical/client/html', name: 'app_soap_html_client')]
     public function soap_html_client(HelperService $helperservice): Response {
+        $url = $this->getParameter('app.url');
         $soap_client_config = array(
             'encoding'      => 'UTF-8',
             'soap_version'  =>  SOAP_1_2, 
-            'location'      => 'http://soap-medical-app.local.com/soap/medical',
+            'location'      =>  $url . 'soap/medical',
             'uri'           => 'http://test-uri/',
             'cache_wsdl'    =>  0,
             'trace' => 1,
@@ -40,7 +42,7 @@ class SoapMedicalController extends AbstractController
             'connection_timeout' => 500000, 
         );
         try {
-            $soap_client = new \SoapClient('http://soap-medical-app.local.com/medical.wsdl', $soap_client_config);
+            $soap_client = new \SoapClient($url .'medical.wsdl', $soap_client_config);
             $soap_result_all = $soap_client->getAllMedicals();
             $response = $soap_client->__getLastResponse();
             
@@ -55,10 +57,11 @@ class SoapMedicalController extends AbstractController
 
      #[Route('/soap/medical/client/json', name: 'app_soap_json_client')]
     public function soap_json_client(HelperService $helperservice): Response {
+        $url = $this->getParameter('app.url');
         $soap_client_config = array(
             'encoding'      => 'UTF-8',
             'soap_version'  =>  SOAP_1_2, 
-            'location'      => 'http://soap-medical-app.local.com/soap/medical',
+            'location'      =>  $url .'soap/medical',
             'uri'           => 'http://test-uri/',
             'cache_wsdl'    =>  0,
             'trace' => 1,
@@ -67,7 +70,7 @@ class SoapMedicalController extends AbstractController
             'connection_timeout' => 500000, 
         );
         try {
-            $soap_client = new \SoapClient('http://soap-medical-app.local.com/medical.wsdl', $soap_client_config);
+            $soap_client = new \SoapClient($url . 'medical.wsdl', $soap_client_config);
             $soap_result_all = $soap_client->getAllMedicals();
             $response = $soap_client->__getLastResponse();
 
